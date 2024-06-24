@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="shortcut icon" href="{% static 'img_icon.png' %}" type="image/x-icon">
+<title>{% block title %}Pass Change Page{% endblock title %}</title>
+<form style="width: 50%; margin:auto;" method="post" novalidate>
+    <h2 class="text-center">Change Your Password Form Here</h2>
+    {% csrf_token %}
+    <!-- {{ form|crispy }} -->
+    {% for fm in form %}
+    {{fm.label_tag}}
+    {{fm}}
+    <p class="text-danger p-2">{{fm.errors|striptags}}</p>
+    {% endfor %}  
+    <button class="btn btn-warning text-white">Submit</button>
+</form>
+{% endblock content %}

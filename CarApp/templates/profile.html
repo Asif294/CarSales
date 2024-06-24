@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+{% block content %}
+
+
+<form style="width:70% ; margin : auto" method="POST">
+    <h1 class="text-center ">Profile Page</h1>
+    <h5>Username: {{ user.username }}</h5>
+    <h5>First Name: {{ user.first_name }}</h5>
+    <h5> Last Name: {{ user.last_name }}</h5>
+    <h5>Email: {{ user.email }}</h5>
+    
+    <a href="edit_profile" class="btn btn-primary  active" role="button" aria-pressed="true">Update Your Profile</a>
+    <a class="btn btn-danger " href="pass_change">Change Your Password</a>
+    
+<ul class="mt-4">
+    <h2>Your Orders</h2>
+    {% for order in orders %}
+        <li class="d-flex p-2 gap-5" style="border:1px solid gray">
+            <div class="">
+            <img class="" style="height:150px ;width:270px" src="{{ order.car.image.url }}" alt="{{ car.name }}">
+            </div>
+            <div class="">
+            <h4>{{ order.car.name }}</h4>
+          
+            <p>Price: ${{ order.car.price }}</p>
+            <p>Ordered on: {{ order.date_ordered }}</p>
+            
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% csrf_token %}
+</form>
+
+{% endblock content %}

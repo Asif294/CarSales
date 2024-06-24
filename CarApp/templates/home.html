@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center mt-5  ">
+
+    <div class="col-6 p-4" style="text-align:center;">
+        <h1>Welcome to Car House</h1>
+      <p> Voluptatibus dolorum delectus necessitatibus temporibus adipisci, harum enim unde, suscipit in ipsum provident hic minima molestias reiciendis nihil veniam aut doloribus, ab quidem sit cum at nemo nulla autem! Dolor quaerat ea voluptatem ullam, consequuntur quisquam ut iste. Vitae exercitationem ipsum blanditiis. Nihil rem in quo magni quam sapiente ad ipsa voluptatum saepe quos temporibus, at iste? Eum saepe eos error ea recusandae, deserunt at quidem odio harum inventore. Necessitatibus eos sapiente architecto optio aut esse, facilis, voluptatibus assumenda ut exercitationem nobis molestias, quisquam nam quia odio ipsa? Voluptatem voluptas distinctio eaque.</p>
+    </div>
+    <div class="col-6 ml-4" >
+  <img class="w-75  px-" src="{% static 'car.jpg' %}" />
+    </div>
+  </div>
+  <h1 class="text-center  pt-5">Our Products</h1>
+
+  <h2 class="px-5">Total Cars Found : {{ cars|length}}</h2>
+  <form style="width:50% ; margin : auto" method="post">
+    <div class="">
+        {% for brand in brands %}
+        
+            <a class="btn btn-dark" style="" href="?brand={{ brand.name }}" style="margin-right: 10px;">
+                {{ brand.name }}
+            </a>
+          
+        {% endfor %}
+    </div>
+    <div>
+        {% if selected_brand %}
+            <h3> {{ selected_brand }}</h3>
+        {% endif %}
+  
+    </div>
+    
+  </form>
+
+ 
+
+
+
+<form style="width:90% ; margin : auto" method="POST">
+
+<ul class=" mt-5 d-flex flex-wrap "  >
+    {% for car in cars %}
+    <div class="col-4">
+        <div class="card mt-4"  style="width:402px; background-color: rgb(235, 233, 233); ">
+            <img style="width:400px; height:260px; border-radius: 5px;" src="{{ car.image.url }}" alt="{{ car.name }}">
+            <div class="card-body">
+                <h3>{{ car.name }}</h3>
+                <h4>Brand: {{ car.brand.name }} </h4>
+                <h5>Quantity: {{ car.quantity }}</h5>
+                <h5>Price: ${{ car.price }}</h5>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'car_detail' car.id %}" type="button" class="btn btn-dark text-white">See Details</a>
+            </div>
+          </div>
+          </div>
+    {% endfor %}
+</ul>
+{% csrf_token %}
+</form>
+{% endblock %}
+{% block footer %}
+{% endblock footer %}
